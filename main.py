@@ -53,9 +53,9 @@ def select(ssid):
 while True:
     try:
         session_id = login()
-        content = choose(session_id)
         success = False
         for i in range(500):
+            content = choose(session_id)
             left = check(content)
             if left > 0:
                 success = select(session_id)
@@ -63,7 +63,7 @@ while True:
             else:
                 try_times += 1
                 print(f"\rTry {try_times} times.", flush=True, end="")
-                time.sleep(0.1)
+                # time.sleep(0.1)
                 continue
         if success:
             break
