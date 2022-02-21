@@ -49,7 +49,7 @@ def check(choose_content):
 def select(ssid):
     data.select["session_id"] = ssid
     r = session.post("https://kiki.ccu.edu.tw/~ccmisp06/cgi-bin/class_new/Add_Course01.cgi", data=data.select, headers=fake_headers)
-    print(r.content.decode("utf-8"))
+    # print(r.content.decode("utf-8"))
     print(f"\nTry {try_times} times.")
     print("Success.")
     return True
