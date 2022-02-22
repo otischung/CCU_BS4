@@ -62,7 +62,7 @@ while True:
         for i in range(500):
             content = choose(session_id)
             left = check(content)
-            if left >= 0:
+            if left > 0:
                 success = select(session_id)
                 break
             else:
