@@ -10,7 +10,7 @@ session_id = ""
 content = ""
 try_times = 1
 
-fake_headers = {"User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.102 Safari/537.36"}
+fake_headers = {"User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36"}
 
 
 def login():
@@ -70,7 +70,8 @@ def check(choose_content):
 def select(ssid):
     data.select["session_id"] = ssid
     r = session.post("https://kiki.ccu.edu.tw/~ccmisp06/cgi-bin/class_new/Add_Course01.cgi", data=data.select, headers=fake_headers)
-    # print(r.content.decode("utf-8"))
+    if os.getenv("DEBUG"):
+        print(r.content.decode("utf-8"))
     print(f"\nTry {try_times} times.")
     print("Success.")
     return True
