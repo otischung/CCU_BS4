@@ -25,7 +25,8 @@ def login():
     # Reference: https://stackoverflow.com/questions/5074803/retrieving-parameters-from-a-url
     if not login_r.history:
         print("Login failed: Please check your account or your password.")
-        quit(1)
+        # quit(1)
+        return None
 
     ssid = parse_qs(urlparse(login_r.url).query)["session_id"][0]
     if os.getenv("DEBUG"):
@@ -56,10 +57,10 @@ def check(choose_content):
     chk_box = soup.select(data.value)  # CSS Selector
     if len(chk_box) == 0:
         print("seems already selected!")
-        # exit(0)
+        return None
     chk_box = chk_box[0]
     if os.getenv("DEBUG"):
-        print("Course Information:")
+        print("\nCourse Information:")
         print("Course: " + chk_box.parent.parent.select("th")[3].get_text())
         print("Class: " + chk_box.parent.parent.select("th")[5].get_text())
         print("Professor: " + chk_box.parent.parent.select("th")[4].get_text())
@@ -80,20 +81,22 @@ def select(ssid):
 while True:
     try:
         session_id = login()
+        if session_id is None:
+            continue
         success = False
         for i in range(500):
             content = choose(session_id)
             left = check(content)
             if left > 0:
                 success = select(session_id)
-                break
+                # break
             else:
                 try_times += 1
                 print(f"\rTry {try_times} times.", flush=True, end="")
                 # time.sleep(0.1)
-                continue
-        if success:
-            break
+                # continue
+        # if success:
+        #     break
     except Exception as e:
         print("something went wrong!", e)
         continue
