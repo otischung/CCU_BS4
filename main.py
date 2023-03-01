@@ -78,25 +78,26 @@ def select(ssid):
     return True
 
 
-while True:
-    try:
-        session_id = login()
-        if session_id is None:
+if __name__ == "__main__":
+    while True:
+        try:
+            session_id = login()
+            if session_id is None:
+                continue
+            success = False
+            for i in range(500):
+                content = choose(session_id)
+                left = check(content)
+                if left > 0:
+                    success = select(session_id)
+                    # break
+                else:
+                    try_times += 1
+                    print(f"\rTry {try_times} times.", flush=True, end="")
+                    # time.sleep(0.1)
+                    # continue
+            # if success:
+            #     break
+        except Exception as e:
+            print("something went wrong!", e)
             continue
-        success = False
-        for i in range(500):
-            content = choose(session_id)
-            left = check(content)
-            if left > 0:
-                success = select(session_id)
-                # break
-            else:
-                try_times += 1
-                print(f"\rTry {try_times} times.", flush=True, end="")
-                # time.sleep(0.1)
-                # continue
-        # if success:
-        #     break
-    except Exception as e:
-        print("something went wrong!", e)
-        continue
